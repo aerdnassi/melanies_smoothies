@@ -23,7 +23,8 @@ ingredients_str = ''
 
 for fruits_chosen in ingredients_list:
     ingredients_str += fruits_chosen + ' '
-    smoothiefroot_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+    st.subheader(fruit_chosen + ' Nutrition Information')
+    smoothiefroot_response = requests.get("https://fruityvice.com/api/fruit" + fruit_chosen)
     sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
 my_insert_stmt = f"insert into smoothies.public.orders(ingredients, name_on_order) values ('{ingredients_str}', '{name_on_order}')"
