@@ -24,9 +24,14 @@ ingredients_str = ''
 for fruit_chosen in ingredients_list:
     ingredients_str += fruit_chosen + ' '
     st.subheader(fruit_chosen + ' Nutrition Information')
-    st.text(fruit_chosen)
-    smoothiefroot_response = requests.get(f"https://fruityvice.com/api/fruit/${fruit_chosen}")
-    sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+
+    try:
+        smoothiefroot_response = requests.get(f"https://fruityvice.com/api/fruit/{fruit_chosen}")
+        data = smoothiefroot_response.json()
+        sf_df = st.dataframe(data=data, use_container_width=True)
+    except Exception as e:
+         st.error(f"Something went wrong: {e}")
+        
 
 my_insert_stmt = f"insert into smoothies.public.orders(ingredients, name_on_order) values ('{ingredients_str}', '{name_on_order}')"
 time_to_insert = st.button('Submit Order')
