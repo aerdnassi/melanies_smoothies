@@ -33,7 +33,7 @@ for fruit_chosen in ingredients_list:
     st.subheader(fruit_chosen + ' Nutrition Information')
 
     try:
-        smoothiefroot_response = requests.get(f"https://fruityvice.com/api/fruit/{fruit_chosen}")
+        smoothiefroot_response = requests.get(f"https://fruityvice.com/api/fruit/{search_on}")
         data = smoothiefroot_response.json()
         sf_df = st.dataframe(data=data, use_container_width=True)
     except Exception as e:
